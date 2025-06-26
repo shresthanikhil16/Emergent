@@ -1,38 +1,265 @@
 .App {
-    text-align: center;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Arial', sans-serif;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 900px;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.game-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.game-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.App-link {
-    color: #61dafb;
+.game-header p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  opacity: 0.9;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.game-canvas {
+  border: 4px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: #87CEEB;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.name-input-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.name-input-screen h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.name-input-screen p {
+  font-size: 1.2rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.name-input {
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  min-width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.name-input:focus {
+  outline: none;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.start-button, .restart-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.start-button:hover, .restart-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ff5252, #ffeb3b);
+}
+
+.start-button:active, .restart-button:active {
+  transform: translateY(-1px);
+}
+
+.game-over-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  border: 2px solid #ff6b6b;
+}
+
+.game-over-screen h2 {
+  font-size: 2.5rem;
+  margin: 0 0 20px 0;
+  color: #ff6b6b;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.game-over-screen p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #fff;
+}
+
+.game-instructions {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.game-instructions h3 {
+  font-size: 1.4rem;
+  margin: 0 0 15px 0;
+  color: #ffd93d;
+}
+
+.game-instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.game-instructions li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1rem;
+}
+
+.game-instructions li:last-child {
+  border-bottom: none;
+}
+
+.game-instructions li:before {
+  content: '🎯 ';
+  margin-right: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .game-header h1 {
+    font-size: 2rem;
+  }
+  
+  .game-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .name-input-screen {
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .name-input {
+    min-width: 200px;
+  }
+  
+  .game-instructions {
+    margin: 20px;
+    padding: 15px;
+  }
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 2s infinite;
+}
+
+/* Game UI styling */
+.game-ui {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Retro gaming feel */
+.game-canvas {
+  filter: contrast(1.1) saturate(1.2);
+}
+
+/* Pixel perfect rendering */
+* {
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -o-crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Button glow effect */
+.start-button, .restart-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.start-button:before, .restart-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.start-button:hover:before, .restart-button:hover:before {
+  left: 100%;
 }
