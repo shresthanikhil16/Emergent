@@ -245,6 +245,11 @@ async def get_game_state(player_id: str):
     state = await db.game_states.find_one({"player_id": player_id})
     if not state:
         raise HTTPException(status_code=404, detail="Game state not found")
+    
+    # Remove MongoDB _id field for JSON serialization
+    if "_id" in state:
+        del state["_id"]
+    
     return state
 
 # Include the router in the main app
